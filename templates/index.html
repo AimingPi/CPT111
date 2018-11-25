@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <title>piOpener Gate Interface</title>
+  </head>
+  <body>
+  <h1>piOpener Gate Interface</h1>
+    <img src="{{ url_for('video_feed') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type=text/javascript>
+
+
+window.setInterval(
+       function() {
+       $.ajax("/update_answer_btn", {dataType:'text', cache: false}).done(function(e){
+         if (isNaN(parseInt(e)))
+         {
+         $("#answerCall").html("<a href=# id=answerCall><button class='btn'>" + e +"</button></a>");
+         }
+         else {
+            $("#answerCall").html("<a href=# id=answerCall><button class='btn'>Answer call (" + e +")</button></a>");
+          }
+          }
+        );
+     }, 1000);
+
+
+$(function() { $("#videoStart").bind("click", function(e) {$.getJSON("/start_feed");
+            e.preventDefault();
+            location.reload();
+            return false; });
+});
+
+$(function() { $("#videoStop").bind("click", function(e) {$.getJSON("/stop_feed");
+            e.preventDefault();
+            location.reload();
+            return false; });
+});
+
+
+$(function() { $("#audioStart").bind("click", function(e) {$.getJSON("/start_audio");
+            e.preventDefault();
+            return false;});
+});
+
+$(function() { $("#audioStop").bind("click", function(e) {$.getJSON("/stop_audio");
+            e.preventDefault();
+            return false; });
+});
+
+
+$(function() { $("#gateToggle").bind("click", function(e) {$.getJSON("/gate_toggle");
+            e.preventDefault();
+            return false; });
+});
+
+$(function() { $("#shutDown").bind("click", function(e) {$.getJSON("/shut_down");
+            e.preventDefault();
+            return false; });
+});
+
+$(function() { $("#answerCall").bind("click", function(e) {$.getJSON("/answer_call");
+            e.preventDefault();
+            return false; });
+});
+
+$(function() { $("#test").bind("click", function(e) {$.getJSON("/test");
+            e.preventDefault();
+            return false; });
+});
+
+</script>
+  <style>
+#container{
+display: inline-block;
+}
+</style>
+  <div class='container'>
+            <a href=# id=answerCall><button class='btn'>No calls</button></a>
+            <a href=# id=videoStart><button class='btn'>Video Start</button></a>
+            <a href=# id=videoStop><button class='btn'>Video Stop</button></a>
+            <a href=# id=audioStart><button class='btn'>Audio Start</button></a>
+            <a href=# id=audioStop><button class='btn'>Audio Stop</button></a>
+            <a href=# id=gateToggle><button class='btn'>Toggle Gate</button></a>
+            <a href=# id=shutDown><button class='btn'>Shut Down</button></a>
+            <a href=# id=test><button class='btn'>test</button></a>
+
+
+</div>
+  </body>
+</html>
